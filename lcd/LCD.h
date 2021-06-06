@@ -110,5 +110,9 @@ static const char ASCII[][5] = {
 void LCD_Init(void);
 void LCD_OutChar(unsigned char data);
 void LCD_OutString(char *ptr);
-
+void LCD_OutUDec(unsigned short n);
+void LCD_SetCursor(unsigned char newX, unsigned char newY);
+void LCD_Clear(void);
+void LCD_SetPixel(unsigned char x, unsigned char y) ;
+void LCD_ClearPixel(unsigned char x, unsigned char y) ;
 #endif

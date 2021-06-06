@@ -86,3 +86,76 @@ void LCD_OutString(char *ptr){
     ptr = ptr + 1;
   }
 }
+
+void LCD_OutUDec(unsigned short n){
+  if(n < 10){
+    LCD_OutString("    ");
+    LCD_OutChar(n+'0'); 
+  } else if(n<100){
+    LCD_OutString("   ");
+    LCD_OutChar(n/10+'0'); 
+    LCD_OutChar(n%10+'0'); 
+  } else if(n<1000){
+    LCD_OutString("  ");
+    LCD_OutChar(n/100+'0'); 
+    n = n%100;
+    LCD_OutChar(n/10+'0'); 
+    LCD_OutChar(n%10+'0'); 
+  }
+  else if(n<10000){
+    LCD_OutChar(' ');
+    LCD_OutChar(n/1000+'0'); 
+    n = n%1000;
+    LCD_OutChar(n/100+'0'); 
+    n = n%100;
+    LCD_OutChar(n/10+'0'); 
+    LCD_OutChar(n%10+'0'); 
+  }
+  else {
+    LCD_OutChar(n/10000+'0'); 
+    n = n%10000;
+    LCD_OutChar(n/1000+'0'); 
+    n = n%1000;
+    LCD_OutChar(n/100+'0'); 
+    n = n%100;
+    LCD_OutChar(n/10+'0');
+    LCD_OutChar(n%10+'0');
+  }
+}
+
+
+void LCD_SetCursor(unsigned char newX, unsigned char newY){
+  if((newX > 11) || (newY > 5)){        
+    return;                          
+  }
+  lcdwrite(COMMAND, 0x80|(newX*7));     
+  lcdwrite(COMMAND, 0x40|newY);         
+}
+
+void LCD_Clear(void){
+  int i;
+  for(i=0; i<(MAX_X*MAX_Y/8); i=i+1){
+    lcdwrite(DATA, 0x00);
+  }
+  LCD_SetCursor(0, 0);
+}
+
+void LCD_SetPixel(unsigned char x, unsigned char y) {
+  unsigned short PixelByte;            
+  unsigned char PixelBit;
+  if ((x<84) && (y<48)) {              
+    PixelByte = ((y/8)*84) + x;
+    PixelBit = y % 8;
+    Screen[PixelByte] |= 1U<<PixelBit;
+  }
+}
+
+void LCD_ClearPixel(unsigned char x, unsigned char y) {
+  unsigned short PixelByte;            
+  unsigned char PixelBit;              
+  if ((x<84) && (y<48)) {              
+    PixelByte = ((y/8)*84) + x;
+    PixelBit = y % 8;
+    Screen[PixelByte] &= ~(1U<<PixelBit);
+  }
+}
