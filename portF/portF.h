@@ -4,4 +4,14 @@
 
 void PortF_init(void);
 
+
+void PortF_init(void);
+
+
+uint32_t PortF_Input(void);
+
+
+void PortF_Output(uint32_t data);
+
+
 #endif

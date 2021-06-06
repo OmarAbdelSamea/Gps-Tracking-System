@@ -16,3 +16,11 @@ void PortF_init(void){
 
 
 }
+
+uint32_t PortF_Input(void) {
+    return (GPIO_PORTF_DATA_R & 0x11);
+}
+
+void PortF_Output(uint32_t data) {
+    GPIO_PORTF_DATA_R = data;
+}
