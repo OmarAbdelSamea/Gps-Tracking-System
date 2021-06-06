@@ -12,6 +12,8 @@ enum typeOfWrite{
   DATA                                  
 };
 
+char Screen[SCREENW * SCREENH / 8];
+
 void static lcdwrite(enum typeOfWrite type, char message){
   if(type == COMMAND){
     while((SSI0_SR_R&SSI_SR_BSY)==SSI_SR_BSY){};
@@ -158,4 +160,78 @@ void LCD_ClearPixel(unsigned char x, unsigned char y) {
     PixelBit = y % 8;
     Screen[PixelByte] &= ~(1U<<PixelBit);
   }
+}
+
+void LCD_DrawFullImage(const char* ptr) {
+    int i;
+    LCD_SetCursor(0, 0);
+    for (i = 0; i < (MAX_X * MAX_Y / 8); i = i + 1) {
+        lcdwrite(DATA, ptr[i]);
+    }
+}
+
+void LCD_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned char* ptr, unsigned char threshold) {
+    long width = ptr[18], height = ptr[22], i, j;
+    unsigned short screenx, screeny;
+    unsigned char mask;
+    if ((height <= 0) ||
+        ((width % 2) != 0) ||
+        ((xpos + width) > SCREENW) ||
+        (ypos < (height - 1)) ||
+        (ypos > SCREENH)) {
+        return;
+    }
+    if (threshold > 14) {
+        threshold = 14;
+    }
+
+    screeny = ypos / 8;
+    screenx = xpos + SCREENW * screeny;
+    mask = ypos % 8;
+    mask = 0x01 << mask;
+    j = ptr[10];
+    for (i = 1; i <= (width * height / 2); i = i + 1) {
+        if (((ptr[j] >> 4) & 0xF) > threshold) {
+            Screen[screenx] |= mask;
+        }
+        else {
+            Screen[screenx] &= ~mask;
+        }
+        screenx = screenx + 1;
+        if ((ptr[j] & 0xF) > threshold) {
+            Screen[screenx] |= mask;
+        }
+        else {
+            Screen[screenx] &= ~mask;
+        }
+        screenx = screenx + 1;
+        j = j + 1;
+        if ((i % (width / 2)) == 0) {
+            if (mask > 0x01) {
+                mask = mask >> 1;
+            }
+            else {
+                mask = 0x80;
+                screeny = screeny - 1;
+            }
+            screenx = xpos + SCREENW * screeny;
+            switch ((width / 2) % 4) {
+            case 0: j = j + 0; break;
+            case 1: j = j + 3; break;
+            case 2: j = j + 2; break;
+            case 3: j = j + 1; break;
+            }
+        }
+    }
+}
+
+void LCD_ClearBuffer(void) {
+    int i;
+    for (i = 0; i < SCREENW * SCREENH / 8; i = i + 1) {
+        Screen[i] = 0;
+    }
+}
+
+void LCD_DisplayBuffer(void) {
+    LCD_DrawFullImage(Screen);
 }
