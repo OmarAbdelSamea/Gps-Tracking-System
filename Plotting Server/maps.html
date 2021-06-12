@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GPS Tracking System | Home</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <style>
+      #mapid { height: 700px; }
+
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row m-3 text-center">
+        <h2>GPS Tracking System</h2>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <h5 id="connection">Connection Status:  <b style="color: red;">Not Connected</b>  <span class="material-icons" style="transform: translateY(5px);">radio_button_unchecked</span></h5>
+          </div>
+          
+          <h5 id="lastUpdated">Last Updated: </h5>
+        </div>
+      </div>
+      <div class="row text-center m-3">
+        <h3 id="distance">Distance Moved: 0 m</h3>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="mapid"></div>
+        </div>
+      </div>
+      
+    </div>
+    
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="index.js"></script>
+  </body>
+</html>
