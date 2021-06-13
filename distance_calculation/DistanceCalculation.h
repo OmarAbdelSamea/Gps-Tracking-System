@@ -3,7 +3,9 @@
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "../Types.h"
 
 long double to_rad(long double degree);
-long double distance_calculation(long double lat1, long double lat2, long double long1, long double long2);
+distance distanceCalculation(point point1, point point2);
+double distanceBetween(point point1, point point2);
 #endif
