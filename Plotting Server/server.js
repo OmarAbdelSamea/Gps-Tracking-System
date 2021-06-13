@@ -57,8 +57,10 @@ app.get('/update', (req, res)=>{
         'distance' : req.query.distance
     }
     projectData.push(newEntry);
-    res.status(200);
     console.log(newEntry);
+    res.status(200);
+    res.json({"success": true});
+    
 });
 
 app.get('/fetch', (req, res)=>{
