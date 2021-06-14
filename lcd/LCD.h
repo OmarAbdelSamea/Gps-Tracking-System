@@ -115,8 +115,9 @@ void LCD_SetCursor(unsigned char newX, unsigned char newY);
 void LCD_Clear(void);
 void LCD_SetPixel(unsigned char x, unsigned char y) ;
 void LCD_ClearPixel(unsigned char x, unsigned char y) ;
-void LCD_DrawFullImage(const char* ptr);
-void LCD_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned char* ptr, unsigned char threshold);
+void LCD_DrawFullImage(const char *ptr);
+void LCD_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned char *ptr, unsigned char threshold);
 void LCD_ClearBuffer(void);
 void LCD_DisplayBuffer(void);
+
 #endif

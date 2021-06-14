@@ -17,7 +17,7 @@ unsigned char extractString(char outStringGPGGA[], char outStringGPVTG[])
 					return 0;
 				}
         i = 0;
-        inChar = UART1_InChar();
+        inChar = UART2_InChar();
         GPIO_PORTF_DATA_R = 0x04;
         if (inChar == '$')
         {
@@ -33,7 +33,7 @@ unsigned char extractString(char outStringGPGGA[], char outStringGPVTG[])
 						}
             for (i = 1; i < 6; i++)
             {
-                inChar = UART1_InChar();
+                inChar = UART2_InChar();
 								if(flgTypeGPGGA == 0)
 									{
 									outStringGPGGA[i] = inChar;
@@ -56,7 +56,7 @@ unsigned char extractString(char outStringGPGGA[], char outStringGPVTG[])
             {
                 for (i = 6; i < 100; i++)
                 {
-                    inChar = UART1_InChar();
+                    inChar = UART2_InChar();
                     if (inChar == '$')
                     {
                         //GPIO_PORTF_DATA_R = 0x02; // update LEDs
@@ -75,7 +75,7 @@ unsigned char extractString(char outStringGPGGA[], char outStringGPVTG[])
                 for (i = 6; i < 100; i++)
                 {
 									
-                    inChar = UART1_InChar();
+                    inChar = UART2_InChar();
                     if (inChar == '$')
                     {
                         //GPIO_PORTF_DATA_R = 0x02; // update LEDs

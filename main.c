@@ -1,14 +1,14 @@
 /* Gps_Tracking_System CSE312 */
 #include "tm4c123gh6pm.h"
 #include "UART/UART.h"
-#include "pll/PLL.h"
-#include "lcd/LCD.h"
-#include "systick/systick.h"
-#include "portF/portF.h"
+#include "PLL/PLL.h"
+#include "LCD/LCD.h"
+#include "Systick/systick.h"
+#include "PortF/portF.h"
 #include "StringManipulation/ExtractString.h"
 #include "StringManipulation/getCoordinates.h"
 #include "StringManipulation/esp.h"
-#include "distance_calculation/DistanceCalculation.h"
+#include "DistanceCalculation/DistanceCalculation.h"
 #include <stdio.h>
 
 unsigned char extractComplete;
@@ -32,7 +32,6 @@ int main()
 	UART1_Init();
 	UART2_Init();
 	PortF_init();
-	LCD_OutString("Yarb 2stor");
 	lastPointGPGGA.valid = -1;
 	EnableInterrupts();
 	while(1)
@@ -53,9 +52,9 @@ int main()
 			newDistance += newDelta;
 		}
 		lastPointGPGGA = newPointGPGGA;			
-  	LCD_Clear();
 		if(falseReadDetector < NUM_OF_UNUSED_READINGS)
 		{
+			LCD_Clear();
 			LCD_SetCursor(0,2);
 			LCD_OutString("Please Wait");
 			LCD_SetCursor(0,3);
@@ -68,12 +67,13 @@ int main()
 		{
 			esp(newDistance,newPointGPGGA);
 			sprintf(stringDistance, "%lf", newDistance);
+			LCD_Clear();
 			LCD_OutString("Distance:");
-			LCD_SetCursor(0,2);
+			LCD_SetCursor(0,1);
 			LCD_OutString(stringDistance);
-			LCD_SetCursor(0,3);
-			LCD_OutString("Velocity:");
 			LCD_SetCursor(0,4);
+			LCD_OutString("Velocity:");
+			LCD_SetCursor(0,5);
 			sprintf(stringVelocity, "%lf", velocity);
 			LCD_OutString(stringVelocity);
 		}

@@ -1,13 +1,8 @@
 #ifndef SYSTICK_H
 #define SYSTICK_H
-#include "tm4c123gh6pm.h"
-#include "portF.h"
+#include "../tm4c123gh6pm.h"
 #include <stdint.h>
+#include "../Types.h"
 
-void systick_init(void);
-
-void systick_wait(uint32_t delay);
-
-void systick_wait10(uint32_t delay);
-
+void Systick_Init(void);
 #endif

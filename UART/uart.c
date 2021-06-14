@@ -104,7 +104,7 @@ unsigned char UART2_InCharNonBlocking(void){
   if((UART2_FR_R&UART_FR_RXFE) == 0){
     return((unsigned char)(UART2_DR_R&0xFF));
   } else{
-    return 0;
+    return 'a';
   }
 }
 
